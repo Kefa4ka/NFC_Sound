@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Відтворення пісні</title>
+    <title>Вибір пісні</title>
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             background-color: #f5f5f5;
             margin: 0;
+            font-family: Arial, sans-serif;
         }
 
         .button {
-            width: 300px;
-            height: 300px;
+            width: 150px;
+            height: 150px;
             background-color: #4CAF50;
             border-radius: 50%;
             border: none;
@@ -30,20 +32,44 @@
         .button:hover {
             background-color: #45a049;
         }
+
+        select {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <button class="button" id="playButton">Play</button>
 
-    <audio id="audio" src="https://github.com/Kefa4ka/Sound/raw/main/sound2.mp3"></audio>
+    <audio id="audio" controls></audio>
+
+    <select id="songList">
+        <option value="https://github.com/Kefa4ka/Sound/raw/main/sound2.mp3">Пісня 1</option>
+        <option value="https://github.com/Kefa4ka/Sound/raw/main/sound.mp3">Пісня 2</option>
+    </select>
 
     <script>
         const playButton = document.getElementById('playButton');
         const audio = document.getElementById('audio');
+        const songList = document.getElementById('songList');
 
+        // Відтворення пісні при натисканні на кнопку
         playButton.addEventListener('click', () => {
-            audio.play();
-            audio.volume = 1;
+            const selectedSong = songList.value; // Отримуємо вибрану пісню з списку
+            audio.src = selectedSong; // Встановлюємо її як джерело
+            audio.play(); // Відтворюємо пісню
+            audio.volume = 1; // Встановлюємо гучність на максимум
+        });
+
+        // Зміна пісні при виборі іншої
+        songList.addEventListener('change', () => {
+            const selectedSong = songList.value;
+            audio.src = selectedSong;
         });
     </script>
 </body>
